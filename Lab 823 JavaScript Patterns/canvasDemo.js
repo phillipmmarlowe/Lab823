@@ -22,7 +22,7 @@ x = Math.random()*window.innerWidth;
 y= Math.random()*window.innerHeight;
 dx = Math.random()*10 - 5;
 dy = Math.random()*10 - 5;
-radius = 30;
+radius = 10;
 
 function animate(){
   requestAnimationFrame(animate);

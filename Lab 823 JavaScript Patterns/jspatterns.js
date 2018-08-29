@@ -4,7 +4,7 @@ window.onload = init;//  After the window has been loaded, go to init
 var canvas;
 var ctx;
 var x, y, dx, dy, radius;
-
+radius = 20;
 function init(){
   //get the canvas
   canvas = document.getElementById('cnv');
@@ -16,24 +16,60 @@ function init(){
   // get the context
   ctx = canvas.getContext('2d'); // This is the context
 
-  
-  x = Math.random()*window.innerWidth;
-  y= Math.random()*window.innerHeight;
+
+  x = Math.random()*canvas.width;
+  y= Math.random()*canvas.height;
   dx = Math.random()*10 - 5;
   dy = Math.random()*10 - 5;
   animate();
+
 }
 
 function animate(){
-  radius = 30;
-  requestAnimationFrame(animate);
-  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  ctx.strokeStyle = 'rgba(55,50,220)';
-  ctx.beginPath();
-  ctx.arc(x,y, radius, Math.PI*2, 0, false);
-  ctx.stroke();
-  x += dx;
-  y += dy;
-  if(x > window.innerWidth || x < 0)  dx = -dx;
-  if(y > window.innerHeight || y < 0)  dy = -dy;
+	requestAnimationFrame(animate);
+	ctx.clearRect(0,0,canvas.width, canvas.height);
+	'ctx.strokeStyle = rgba(55,50,220);'
+	ctx.beginPath();
+	ctx.arc(x,y,radius, 0, Math.PI*2, false);
+	ctx.stroke();
+	x += dx;
+	y += dy;
+	if(x > canvas.width || x < 0)  dx = -dx;
+	if(y > canvas.height || y < 0)  dy = -dy;
+	//requestAnimationFrame(animate);
+}
+//  JavaScript object patterns
+//  One:Ball Factory:: Build and return a Ball
+function ballFactory(){
+	var Ball= {
+		BallRad:1,
+		//getRadius:function(){
+	 //return rad;
+	//}
+}
+return Ball;
+}
+
+// Two:Constructor function:: Simplifies the code above
+function Ball(rad){
+    this.radius = rad;
+	this.getDiameter = function(){
+		return this.rad*2;
+		}
+}
+
+//  Three:Add a method to the prototype
+Ball.prototype.getArea = function () {
+	return this.radius*this.radius*Math.PI;
+};
+
+// Four:Classical syntax::Hand holding for Java programmers
+// Where does the function "getDiameter()" end up?
+class ClassyBall{
+    constructor(rad){
+		this.rad = rad;
+	}
+	getDiameter(){
+		return this.rad*2;
+	}
 }
